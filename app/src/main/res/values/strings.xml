@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Listly</string>
+    <string name="app_motto">YOUR HANDY TO-DO LIST</string>
+    <string name="app_text_task_name">Task Name</string>
+    <string name="app_text_due_date">Due date</string>
+    <string name="app_text_task_notes">Task Notes</string>
+    <string name="app_text_priority_level">Priority Level</string>
+    <string name="app_text_status">Status</string>
+    <string name="app_text_edit_notes">Enter notes for this task</string>
+    <string name="menu_add">Add Task</string>
+    <string name="menu_delete_task">Delete Task</string>
+    <string name="menu_edit_task">Edit Task</string>
+    <string-array name="priority_level">
+        <item>HIGH</item>
+        <item>MEDIUM</item>
+        <item>LOW</item>
+    </string-array>
+    <string-array name="status">
+        <item>TO-DO</item>
+        <item>DONE</item>
+    </string-array>
+</resources>
