@@ -1,7 +1,11 @@
 package com.a1412453.todoapp.activities;
 
 import android.app.DatePickerDialog;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +18,7 @@ import android.widget.DatePicker;
 import android.widget.Spinner;
 
 import com.a1412453.todoapp.R;
+import com.a1412453.todoapp.fragments.EditItemFragment;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -29,25 +34,42 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name).toString());
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_back);
 
+        /*ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            //actionBar.setHomeAsUpIndicator(android.R.drawable.back);
+        }*/
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       // getMenuInflater().inflate(R.menu.menu_main, menu);
-
-
-        if (menu != null) {
-            menu.findItem(R.id.action_add_task).setVisible(false);
-            menu.findItem(R.id.action_cancel_task).setVisible(true);
-            menu.findItem(R.id.action_save_task).setVisible(true);
-            menu.findItem(R.id.action_delete_task).setVisible(false);
-        }
-
-        return true;
+       // Inflate the menu; this adds items to the action bar if it is present.
+       getMenuInflater().inflate(R.menu.menu_task_detail, menu);
+       return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit_task:
+                showFragment(new EditItemFragment());
+                return true;
+            case R.id.action_delete_task:
+                //showFragment(new ListItemFragment());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-
+    private void showFragment(Fragment f) {
+        FragmentManager fm = getSupportFragmentManager();
+        EditItemFragment newFragment = new EditItemFragment();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.add(android.R.id.content, newFragment).addToBackStack(null).commit();
+    }
 }

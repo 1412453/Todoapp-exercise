@@ -4,172 +4,145 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.a1412453.todoapp.activities.DetailActivity">
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:layout_below="@+id/toolbar"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true">
-
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:divider="?android:dividerHorizontal"
-            >
-
-            <TextView
-                android:layout_width="@dimen/text_max_width"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/app_text_task_name"
-                />
-            <TextView
-                android:id="@+id/text_task_name"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_motto"
-                android:gravity="right"
-                android:textAlignment="gravity"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_gravity="center"/>
-
-
-        </LinearLayout>
-
-        <View
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:background="@color/color_primary_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="@dimen/text_max_width"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/app_text_due_date"/>
-            <TextView
-                android:id="@+id/text_due_date"
+                android:orientation="horizontal"
+                android:divider="?android:dividerHorizontal"
+                >
+                    <TextView
+                        android:layout_width="@dimen/text_max_width"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/app_text_task_name" />
+                    <TextView
+                        android:id="@+id/text_task_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_motto"
+                        android:gravity="right"
+                        android:textAlignment="gravity"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_gravity="center"/>
+            </LinearLayout>
+            <View
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:background="@color/color_primary_dark" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nov 9 2015"
-                android:gravity="right"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textAlignment="gravity"
-                android:layout_gravity="center"/>
-        </LinearLayout>
-
-        <View
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:background="@color/color_primary_dark" />
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="@dimen/text_max_width"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/app_text_task_notes"/>
-            <TextView
-                android:id="@+id/text_task_notes"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/text_max_width"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/app_text_due_date"/>
+                <TextView
+                    android:id="@+id/text_due_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nov 9 2015"
+                    android:gravity="right"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <View
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:background="@color/color_primary_dark" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Task for the future"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:gravity="right"
-                android:textAlignment="gravity"/>
-        </LinearLayout>
-
-        <View
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:background="@color/color_primary_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="@dimen/text_max_width"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/app_text_priority_level"/>
-            <TextView
-                android:id="@+id/text_priority_level"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/text_max_width"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/app_text_task_notes"/>
+                <TextView
+                    android:id="@+id/text_task_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Task for the future"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:gravity="right"
+                    android:textAlignment="gravity"/>
+            </LinearLayout>
+            <View
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:background="@color/color_primary_dark" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="HIGH"
-                android:gravity="right"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textAlignment="gravity"/>
-        </LinearLayout>
-
-        <View
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height= "2dp"
-            android:background="@color/color_primary_dark" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="@dimen/text_max_width"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/app_text_status"/>
-            <TextView
-                android:id="@+id/text_status"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/text_max_width"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/app_text_priority_level"/>
+                <TextView
+                    android:id="@+id/text_priority_level"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="HIGH"
+                    android:gravity="right"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAlignment="gravity"/>
+            </LinearLayout>
+            <View
+                android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:background="@color/color_primary_dark" />
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TO-DO"
-                android:gravity="right"
-                android:textAlignment="gravity"
-                android:textAppearance="?android:attr/textAppearanceMedium"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/text_max_width"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/app_text_status"/>
+                <TextView
+                    android:id="@+id/text_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TO-DO"
+                    android:gravity="right"
+                    android:textAlignment="gravity"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+            </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
-
-</RelativeLayout>
-
-<include layout="@layout/toolbar"
-android:id="@+id/toolbar"/>
-
+    </RelativeLayout>
+    <include layout="@layout/toolbar"
+    android:id="@+id/toolbar"/>
 </RelativeLayout>

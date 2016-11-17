@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 
 import com.a1412453.todoapp.R;
 import com.a1412453.todoapp.fragments.EditItemFragment;
-import com.a1412453.todoapp.fragments.ListItemFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_listly);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name).toString());
 
-        showFragment(new ListItemFragment());
+        //showFragment(new ListItemFragment());
 
     }
 
@@ -41,9 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
-        if (mMenu != null) {
-            mMenu.findItem(R.id.action_add_task).setVisible(true);
-        }
+
     }
 
 
@@ -59,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_task:
-                showFragment(new EditItemFragment());
+                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+                //showFragment(new EditItemFragment());
                 return true;
-            case R.id.action_cancel_task:
-                showFragment(new ListItemFragment());
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -70,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void showFragment(Fragment f) {
         FragmentManager fm = getSupportFragmentManager();
+        EditItemFragment newFragment = new EditItemFragment();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_placeholder,f,mBackStateName);
-        ft.commit();
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.add(android.R.id.content, newFragment).addToBackStack(null).commit();
     }
-
 }

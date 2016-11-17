@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
-    <!--<style name="DialogTheme" parent="android:Theme" >
+    <style name="DialogTheme" parent="android:Theme" >
         <item name="android:windowFullscreen">true</item>
-    </style>-->
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.DayNight.Dialog"/>
+    <style name="AppTheme.AppBarOverlay" parent="android:Theme.Holo.Light.Dialog"/>
 
     <style name="AppDialogTheme" parent="android:Theme.Holo.Light">
         <!-- Define color properties as desired -->
