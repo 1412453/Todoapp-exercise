@@ -1,5 +1,6 @@
 package com.a1412453.todoapp.adapters;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,24 +26,25 @@ public class TodoListAdapter extends BaseAdapter {
 
     private int mLayout;
     private LayoutInflater mRootInflater;
-    protected List<Task> listTask; //this is the list of the adapter
+    private Context mContext;
+    protected List<Task> mListTask; //this is the list of the adapter
 
-    public TodoListAdapter(int mLayout, LayoutInflater mRootInflater) {
-        this.mLayout = mLayout;
-        this.mRootInflater = mRootInflater;
-
-        listTask = new ArrayList<>();
+    public TodoListAdapter(int layout, LayoutInflater rootInflater, Context context, List<Task> listTask) {
+        this.mLayout = layout;
+        this.mRootInflater = rootInflater;
+        this.mContext = context;
+        this.mListTask = listTask;
     }
 
 
     @Override
     public int getCount() {
-        return listTask.size();
+        return mListTask.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listTask.get(i);
+        return mListTask.get(i);
     }
     @Override
     public long getItemId(int i) {
@@ -51,7 +53,7 @@ public class TodoListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
-        Task task = listTask.get(position);
+        Task task = mListTask.get(position);
         view = populateView(position,view,viewGroup,mRootInflater,mLayout,task);
         return view;
     }
@@ -69,6 +71,19 @@ public class TodoListAdapter extends BaseAdapter {
         }
 
         holder.text_status.setText(task.getStatus());
+        switch (task.getStatus()){
+            case "HIGH":
+                holder.text_task_name.setTextColor(mContext.getResources().getColor(R.color.color_lv_high));
+                break;
+            case "MEDIUM":
+                holder.text_task_name.setTextColor(mContext.getResources().getColor(R.color.color_lv_medium));
+                break;
+            case "LOW":
+                holder.text_task_name.setTextColor(mContext.getResources().getColor(R.color.color_lv_low));
+                break;
+            default:
+                break;
+        }
         holder.text_task_name.setText(task.getName());
 
         return view;

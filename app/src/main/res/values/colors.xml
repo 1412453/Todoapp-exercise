@@ -7,5 +7,8 @@
     <color name="color_text_motto">#8E5251</color>
     <color name="color_background_white">#FFFFFF</color>
     <color name="color_text_black">#000000</color>
+    <color name="color_lv_high">#EA7A84</color>
+    <color name="color_lv_medium">#FBC660</color>
+    <color name="color_lv_low">#35C0A0</color>
 
 </resources>

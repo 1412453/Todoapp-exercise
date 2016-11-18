@@ -8,14 +8,33 @@ public class Task {
     private String mName;
     private String mDate;
     private String mNotes;
-    private Integer mPriorityLevel;
-    private Integer mStatus;
+    private String mPriorityLevel;
+    private String mStatus;
 
-    public Task(String mName, String mDate, String mNotes, Integer mPriorityLevel, Integer mStatus) {
+    public Task(){
+    }
+
+    public Task(String mName, String mDate, String mNotes, String mPriorityLevel, String mStatus) {
         this.mName = mName;
         this.mDate = mDate;
         this.mNotes = mNotes;
         this.mPriorityLevel = mPriorityLevel;
+        this.mStatus = mStatus;
+    }
+
+    public String getPriorityLevel() {
+        return mPriorityLevel;
+    }
+
+    public void setPriorityLevel(String mPriorityLevel) {
+        this.mPriorityLevel = mPriorityLevel;
+    }
+
+    public String getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(String mStatus) {
         this.mStatus = mStatus;
     }
 
@@ -33,22 +52,6 @@ public class Task {
 
     public void setNotes(String mNotes) {
         this.mNotes = mNotes;
-    }
-
-    public Integer getPriorityLevel() {
-        return mPriorityLevel;
-    }
-
-    public void setPriorityLevel(Integer mPriorityLevel) {
-        this.mPriorityLevel = mPriorityLevel;
-    }
-
-    public Integer getStatus() {
-        return mStatus;
-    }
-
-    public void setStatus(Integer mStatus) {
-        this.mStatus = mStatus;
     }
 
     public String getName() {

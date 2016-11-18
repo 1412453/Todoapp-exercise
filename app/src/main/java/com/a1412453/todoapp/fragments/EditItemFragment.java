@@ -2,6 +2,7 @@ package com.a1412453.todoapp.fragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,16 +24,40 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.a1412453.todoapp.R;
+import com.a1412453.todoapp.activities.DetailActivity;
+import com.a1412453.todoapp.models.CustomDate;
+import com.a1412453.todoapp.models.Task;
 
 public class EditItemFragment extends DialogFragment {
 
     private static final String TAG = "EditItemFragment";
     Spinner mPriorityLevelSpinner,mStatusSpinner;
     DatePicker mDueDatePicker;
+    Task mTask;
+    ArrayAdapter mStatusAdapter, mPriorityLevelAdapter;
+    EditText mTaskNameEd, mTaskNotesEd;
 
+    public static EditItemFragment newInstance(Task task) {
+        EditItemFragment frag = new EditItemFragment();
+        Bundle args = new Bundle();
+        if (task!=null) {
+            args.putBoolean("task_exist",true);
+            args.putString("task_name", task.getName());
+            args.putString("task_date", task.getDate());
+            args.putString("task_notes",task.getNotes());
+            args.putString("task_prior_lv",task.getPriorityLevel());
+            args.putString("task_status",task.getStatus());
+        }
+        else
+            args.putBoolean("task_exist",false);
+        frag.setArguments(args);
+        return frag;
+    }
 
     @Nullable
     @Override
@@ -76,7 +101,7 @@ public class EditItemFragment extends DialogFragment {
         int id = item.getItemId();
 
         if (id == R.id.action_save_task) {
-
+            //process here
             return true;
         } else if (id == android.R.id.home || id == R.id.action_cancel_task) {
             // handle close button click here
@@ -91,18 +116,39 @@ public class EditItemFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mTaskNameEd = (EditText) view.findViewById(R.id.ed_task_name);
+        mTaskNotesEd = (EditText) view.findViewById(R.id.ed_task_notes);
+
         mPriorityLevelSpinner= (Spinner) view.findViewById(R.id.spinner_priority_level);
-        ArrayAdapter priorityLevelAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.priority_level,android.R.layout.simple_spinner_item);
-        mPriorityLevelSpinner.setAdapter(priorityLevelAdapter);
+        ArrayAdapter mPriorityLevelAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.priority_level,android.R.layout.simple_spinner_item);
+        mPriorityLevelSpinner.setAdapter(mPriorityLevelAdapter);
         //String value = mPriorityLevelSpinner.getSelectedItem().toString();
 
         mStatusSpinner= (Spinner) view.findViewById(R.id.spinner_status);
-        ArrayAdapter statusAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.status,android.R.layout.simple_spinner_item);
-        mStatusSpinner.setAdapter(statusAdapter);
+        ArrayAdapter mStatusAdapter = ArrayAdapter.createFromResource(getActivity(),R.array.status,android.R.layout.simple_spinner_item);
+        mStatusSpinner.setAdapter(mStatusAdapter);
 
         mDueDatePicker = (DatePicker) view.findViewById(R.id.datepicker_due_date);
-        //mDueDatePicker.getDayOfMonth();
-        //mDueDatePicker.getMonth();
+        mDueDatePicker.getDayOfMonth();
+        mDueDatePicker.getMonth();
+        mDueDatePicker.getYear();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (getArguments().getBoolean("task_exist")==true){
+            mTaskNameEd.setText(getArguments().getString("task_name"));
+            mTaskNotesEd.setText(getArguments().getString("task_notes"));
+            CustomDate customDate = new CustomDate(getArguments().getString("task_date"));
+            mDueDatePicker.updateDate(customDate.getYear(),customDate.getMonth(),customDate.getMonth());
+            int spinnerStatusPos = mStatusAdapter.getPosition(getArguments().getString("task_status"));
+            mStatusSpinner.setSelection(spinnerStatusPos);
+            int spinnerPriorLvPos = mPriorityLevelAdapter.getPosition(getArguments().getString("task_prior_lv"));
+            mStatusSpinner.setSelection(spinnerPriorLvPos);
+        }
+
     }
 
 }

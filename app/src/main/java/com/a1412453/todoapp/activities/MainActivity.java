@@ -10,20 +10,31 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.a1412453.todoapp.R;
+import com.a1412453.todoapp.adapters.TodoListAdapter;
 import com.a1412453.todoapp.fragments.EditItemFragment;
+import com.a1412453.todoapp.libs.DatabaseHelper;
+import com.a1412453.todoapp.models.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private String mBackStateName;
     private Menu mMenu;
+    private ListView mLvTask;
+    private TodoListAdapter mTaskAdapter;
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.color_text_logo));
@@ -39,9 +50,21 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
 
+        db = new DatabaseHelper(this);
 
+        mLvTask = (ListView) findViewById(R.id.listview_task);
+
+        ArrayList<Task> listTasks = db.getAllTasks();
+        mTaskAdapter = new TodoListAdapter(R.layout.item_custom_task,getLayoutInflater(),getBaseContext(),listTasks);
+        mLvTask.setAdapter(mTaskAdapter);
+
+        mLvTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+            }
+        });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -55,17 +78,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add_task:
-                startActivity(new Intent(MainActivity.this,DetailActivity.class));
-                //showFragment(new EditItemFragment());
+                showFragment();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void showFragment(Fragment f) {
+    private void showFragment() {
         FragmentManager fm = getSupportFragmentManager();
-        EditItemFragment newFragment = new EditItemFragment();
+        EditItemFragment newFragment = EditItemFragment.newInstance(null);
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.add(android.R.id.content, newFragment).addToBackStack(null).commit();
