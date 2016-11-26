@@ -21,10 +21,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
-    private static final String KEY_PRIORITY = "priority";
     private static final String KEY_DATE = "date";
-    private static final String KEY_STATUS = "status";
     private static final String KEY_NOTES = "notes";
+    private static final String KEY_PRIORITY = "priority";
+    private static final String KEY_STATUS = "status";
+
+
+    private static DatabaseHelper mInstance;
+
+    public static synchronized DatabaseHelper getInstance(Context context) {
+
+        if (mInstance == null) {
+            mInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,12 +44,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PACKAGES_TABLE = "CREATE TABLE " + TABLE_PACKAGES + "("
-                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + KEY_NAME + " TEXT,"
                 + KEY_DATE + " TEXT,"
                 + KEY_NOTES + " TEXT,"
                 + KEY_PRIORITY + " TEXT,"
-                + KEY_STATUS + " TEXT," + ")";
+                + KEY_STATUS + " TEXT" + ")";
         db.execSQL(CREATE_PACKAGES_TABLE);
     }
 
@@ -63,6 +74,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateTask(Task task){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, task.getId());
+        values.put(KEY_NAME, task.getName());
+        values.put(KEY_PRIORITY, task.getPriorityLevel());
+        values.put(KEY_DATE, task.getDate());
+        values.put(KEY_NOTES, task.getNotes());
+        values.put(KEY_STATUS, task.getStatus());
+
+        int rows = db.update(TABLE_PACKAGES, values, KEY_ID + "=" + task.getId(),null);
+    }
+
+    public void deleteTask(Task task){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_PACKAGES,KEY_ID + "=" + task.getId(),null);
+
+    }
+
     public ArrayList<Task> getAllTasks() {
         ArrayList<Task> listTask = new ArrayList<Task>();
 
@@ -76,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 Task task = new Task();
 
-                //task.id = Integer.parseInt(cursor.getString(0));
+                task.setId(Integer.parseInt(cursor.getString(0)));
                 task.setName(cursor.getString(1));
                 task.setDate(cursor.getString(2));
                 task.setNotes(cursor.getString(3));
@@ -102,8 +134,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.endTransaction();
         }
     }
-
-
-
 
 }

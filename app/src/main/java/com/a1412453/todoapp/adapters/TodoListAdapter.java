@@ -64,22 +64,22 @@ public class TodoListAdapter extends BaseAdapter {
             view = inflater.inflate(layout, viewGroup, false);
             holder = new TaskItemHolder();
             holder.text_task_name = (TextView) view.findViewById(R.id.text_item_task_name);
-            holder.text_status = (TextView) view.findViewById(R.id.text_item_task_status);
+            holder.text_prior_level = (TextView) view.findViewById(R.id.text_item_task_prior_level);
             view.setTag(holder);
         } else {
             holder = (TaskItemHolder) view.getTag();
         }
 
-        holder.text_status.setText(task.getStatus());
-        switch (task.getStatus()){
+        holder.text_prior_level.setText(task.getPriorityLevel());
+        switch (task.getPriorityLevel()){
             case "HIGH":
-                holder.text_task_name.setTextColor(mContext.getResources().getColor(R.color.color_lv_high));
+                holder.text_prior_level.setTextColor(mContext.getResources().getColor(R.color.color_lv_high));
                 break;
             case "MEDIUM":
-                holder.text_task_name.setTextColor(mContext.getResources().getColor(R.color.color_lv_medium));
+                holder.text_prior_level.setTextColor(mContext.getResources().getColor(R.color.color_lv_medium));
                 break;
             case "LOW":
-                holder.text_task_name.setTextColor(mContext.getResources().getColor(R.color.color_lv_low));
+                holder.text_prior_level.setTextColor(mContext.getResources().getColor(R.color.color_lv_low));
                 break;
             default:
                 break;
@@ -90,7 +90,7 @@ public class TodoListAdapter extends BaseAdapter {
     }
 
     private static class TaskItemHolder {
-        TextView text_task_name, text_status;
+        TextView text_task_name, text_prior_level;
     }
 
 }

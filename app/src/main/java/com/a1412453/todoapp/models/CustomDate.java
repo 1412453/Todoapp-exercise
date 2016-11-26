@@ -9,6 +9,12 @@ public class CustomDate {
     int mMonth;
     int mYear;
 
+    public CustomDate(int mDay, int mMonth, int mYear) {
+        this.mDay = mDay;
+        this.mMonth = mMonth;
+        this.mYear = mYear;
+    }
+
     private String convert2Month(int mMonth){
         switch (mMonth){
             case 1:

@@ -19,6 +19,7 @@ import com.a1412453.todoapp.adapters.TodoListAdapter;
 import com.a1412453.todoapp.fragments.EditItemFragment;
 import com.a1412453.todoapp.libs.DatabaseHelper;
 import com.a1412453.todoapp.models.Task;
+import com.a1412453.todoapp.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Menu mMenu;
     private ListView mLvTask;
     private TodoListAdapter mTaskAdapter;
-    private DatabaseHelper db;
+    private DatabaseHelper mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,25 +44,26 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name).toString());
 
         //showFragment(new ListItemFragment());
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        db = new DatabaseHelper(this);
+        mDatabase = DatabaseHelper.getInstance(getApplicationContext());
 
         mLvTask = (ListView) findViewById(R.id.listview_task);
 
-        ArrayList<Task> listTasks = db.getAllTasks();
-        mTaskAdapter = new TodoListAdapter(R.layout.item_custom_task,getLayoutInflater(),getBaseContext(),listTasks);
-        mLvTask.setAdapter(mTaskAdapter);
+        updateList();
 
         mLvTask.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+                Intent mIntent = new Intent(MainActivity.this,DetailActivity.class);
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable(Utils.ITEM_TASK,(Task) mTaskAdapter.getItem(i));
+                mIntent.putExtras(mBundle);
+                startActivity(mIntent);
             }
         });
     }
@@ -85,9 +87,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void updateList(){
+        ArrayList<Task> listTasks = mDatabase.getAllTasks();
+        mTaskAdapter = new TodoListAdapter(R.layout.item_custom_task,getLayoutInflater(),getBaseContext(),listTasks);
+        mLvTask.setAdapter(mTaskAdapter);
+    }
+
     private void showFragment() {
         FragmentManager fm = getSupportFragmentManager();
         EditItemFragment newFragment = EditItemFragment.newInstance(null);
+        newFragment.setCustomObjectListener(new EditItemFragment.EditItemListener() {
+            @Override
+            public void onFinish(Task task) {
+                mDatabase.addTask(task);
+                updateList();
+            }
+        });
         FragmentTransaction ft = fm.beginTransaction();
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         ft.add(android.R.id.content, newFragment).addToBackStack(null).commit();

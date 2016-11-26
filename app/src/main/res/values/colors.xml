@@ -10,5 +10,6 @@
     <color name="color_lv_high">#EA7A84</color>
     <color name="color_lv_medium">#FBC660</color>
     <color name="color_lv_low">#35C0A0</color>
+    <color name="color_item_underline">#A395A3</color>
 
 </resources>
